@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Smile Dental Care</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Bright Smile Dental</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="book-now"><a href="#appointment">Book Now</a></li>
+                <li id="auth-content">
+                    <a href="#" onclick="document.getElementById('auth-modal').style.display='block'">Sign In</a>
+                </li>
+                <li id="user-content" style="display: none;">
+                    <span id="user-email"></span>
+                    <a href="#" onclick="signOut()">Sign Out</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to Modern Dental Care</h1>
+                <p>Experience exceptional dental care with our team of experts</p>
+                <button class="cta-button">Schedule Appointment</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <i class="fas fa-tooth"></i>
+                    <h3>General Dentistry</h3>
+                    <p>Comprehensive dental care for your entire family</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-smile"></i>
+                    <h3>Cosmetic Dentistry</h3>
+                    <p>Transform your smile with our aesthetic treatments</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-teeth"></i>
+                    <h3>Orthodontics</h3>
+                    <p>Achieve the perfect alignment for your teeth</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2>Patient Testimonials</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"Outstanding service and care. The staff is incredibly professional!"</p>
+                    <span class="author">- Sarah M.</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"Best dental experience I've ever had. Highly recommended!"</p>
+                    <span class="author">- John D.</span>
+                </div>
+                <div class="testimonial-card">
+                    <div class="rating">★★★★★</div>
+                    <p>"Modern facility with a caring and knowledgeable team."</p>
+                    <span class="author">- Emily R.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@brightsmile.com</p>
+                    <p><i class="fas fa-location-dot"></i> 123 Dental Street, City, State 12345</p>
+                </div>
+                <div class="office-hours">
+                    <h3>Office Hours</h3>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p>Saturday: 9:00 AM - 2:00 PM</p>
+                    <p>Sunday: Closed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Bright Smile Dental</h4>
+                    <p>Providing quality dental care since 2000</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Bright Smile Dental. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('auth-modal').style.display='none'">&times;</span>
+            <div class="auth-tabs">
+                <button onclick="showTab('signin')">Sign In</button>
+                <button onclick="showTab('signup')">Sign Up</button>
+            </div>
+            <div id="signin-tab" class="auth-tab-content">
+                <h2>Sign In</h2>
+                <input type="email" id="signin-email" placeholder="Email">
+                <input type="password" id="signin-password" placeholder="Password">
+                <button onclick="signIn()">Sign In</button>
+            </div>
+            <div id="signup-tab" class="auth-tab-content" style="display: none;">
+                <h2>Sign Up</h2>
+                <input type="email" id="signup-email" placeholder="Email">
+                <input type="password" id="signup-password" placeholder="Password">
+                <button onclick="signUp()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <elevenlabs-convai agent-id="tl3celBMYuJq9Ea0s2it"></elevenlabs-convai>
+    <script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
+    
+    <!-- Firebase Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+    function showTab(tabName) {
+        document.getElementById('signin-tab').style.display = 'none';
+        document.getElementById('signup-tab').style.display = 'none';
+        document.getElementById(tabName + '-tab').style.display = 'block';
+    }
+    </script>
+</body>
+</html>
